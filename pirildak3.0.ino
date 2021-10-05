@@ -3,7 +3,7 @@
 #define NUM_LEDS 12
 #define LED_PIN 2
 int times=7000;
-int milis=50;
+int milis=50;  // Burada milisi belirlerken aşağıda olan "millis()-start<=times+1900" 1900 gibi süreleri LED SAYISI * MİLİS olarak düşün yani aralıklar 12*50 = 600 şeklinde olmalı
 int dTime =200;
 CRGB leds[NUM_LEDS];
 uint8_t hue1 = 0;
@@ -17,7 +17,7 @@ uint8_t hue8 = 89;
 uint8_t hue9 = 56;
 uint8_t hue10 = 47;
 uint8_t hue11 = 196;
-uint8_t hue12 = 211;
+uint8_t hue0 = 211;
 
 DEFINE_GRADIENT_PALETTE(bgpo_gp) {
     0,    9,    0,    222,
@@ -196,7 +196,7 @@ void setup() {
 void loop() {
    
 
-
+  leds[0] = CHSV(hue0,255,255);
   leds[1] = CHSV(hue1,255,255);
   leds[2] = CHSV(hue2,255,255);
   leds[3] = CHSV(hue3,255,255);
@@ -208,9 +208,11 @@ void loop() {
   leds[9] = CHSV(hue9,255,255);
   leds[10] = CHSV(hue10,255,255);
   leds[11] = CHSV(hue11,255,255);
-  leds[12] = CHSV(hue12,255,255);
+
   
-  
+  EVERY_N_MILLISECONDS(33){
+    hue0++;
+  }
 
   EVERY_N_MILLISECONDS(15){
     hue1++;
@@ -245,8 +247,6 @@ void loop() {
   EVERY_N_MILLISECONDS(28){
     hue11++;
   }
-  EVERY_N_MILLISECONDS(33){
-    hue12++;
-  }
+
   FastLED.show();
 }
